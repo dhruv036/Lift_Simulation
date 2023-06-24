@@ -44,40 +44,6 @@ body{
     border-radius: 10px;
 }
 
-.lift-container{
-    left: 30px;
-    height: 100px;
-    width: 70px;
-    background-color: black;
-    position: relative;
-    z-index: 3;
-    margin-right: 20px;
-    transition: var(--base-transition);
-    overflow: hidden;
-}
-
-.left-door {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 50%;
-    background-color: #8D6E63;
-    border: 2px solid #3E2723;
-    z-index: 1;
-}
-
-.right-door {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 50%;
-    background-color: #8D6E63;
-    border: 2px solid #3E2723;
-    z-index: 1;
-}
-
 .splashScreen button{
     padding: 10px 20px 10px 20px;
     background-color: darkgray;
@@ -90,19 +56,77 @@ body{
       }
 }
 
+.lift-container{
+    left: 30px;
+    height: 100px;
+    width: 70px;
+    background-color: black;
+    position: relative;
+    z-index: 3;
+    margin-right: 20px;
+    transition: var(--base-transition);
+    overflow: hidden;
+}
+
+.open-lift-btn {
+    background-color: #2E86C1;
+    border: 1px solid #2E86C1;
+    color: white;
+}
+
+.close-lift-btn {
+    background-color: #273746;
+    border: 1px solid #273746;
+    color: white;
+}
+
+.left-door {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 50%;
+    background-color: #8D6E63;
+    border: 2px solid #3E2723;
+    z-index: 3;
+    transition: width 2.5s ease-in-out;
+}
+
+.right-door {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 50%;
+    background-color: #8D6E63;
+    border: 2px solid #3E2723;
+    z-index: 3;
+    transition: width 2.5s ease-in-out;
+}
+
+.left-door-move{
+    transform: translateX(-100%);
+}
+
+.right-door-move{
+    transform: translateX(100%);
+}
+
 .floorContainer{
     display: none;
     position: relative;
-
 }
-
-.floor{
+.floor {
+    box-sizing: border-box;
+    border-bottom: 1px solid #CBD5E1;
+    height: 100px;
     display: flex;
     flex-direction: row;
 }
 
 .lift-container{
     transition-property:transform;
+    box-sizing: border-box;
     transition-timing-function:ease-in;
 }
 .lift-buttons  {
@@ -110,26 +134,4 @@ body{
     width: 2rem;
     border-radius: 50%;
     cursor: pointer;
-}
-
-.floor {
-    box-sizing: border-box;
-    border-bottom: 1px solid #CBD5E1;
-    height: 100px;
-    display: flex;
-}
-
-.open-lift-btn {
-    background-color: #2E86C1;
-    border: 1px solid #2E86C1;
-    color: white;
-    transition: width 2.5s ease-in-out;
-
-}
-
-.close-lift-btn {
-    background-color: #273746;
-    border: 1px solid #273746;
-    color: white;
-    transition: width 2.5s ease-in-out;
 }
