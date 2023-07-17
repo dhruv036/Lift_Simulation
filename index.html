@@ -1,41 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Lift Simulation</title>
-        <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
-        <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
-        <link rel="stylesheet" href="./css/style.css"/>
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link
-            href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
-            rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-            integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer" />
-    </head>
-    <body>
-    
-        <!-- Show Input Dialog -->
-        <div class="container" id="container">
-            <div class="splashScreen">
-                <h2>Welcome to Simulation</h2>
-                    <input id="nFloor" type="number" placeholder="Enter No. of Floor" min="1">
-                    <input id="nLift" type="number" placeholder="Enter No. of Lift" min="1">
-                </label>
-                <button id='subBut'>Submit</button>
-            </div>
-        </div>
 
-        <!-- Show Floor and lift -->
-        <div class="floorContainer" id="floorContainer">
-            <div class="back-bt">Back</div>
-            <!-- <div class="floor"> -->
-                <!-- <div class="liftButton">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lift Simulation</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon-16x16.png">
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+        integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+    <!-- Show Input Dialog -->
+    <div class="container" id="container">
+        <div class="splashScreen">
+            <h2>Welcome to Simulation</h2>
+            <input id="nFloor" type="number" placeholder="Enter No. of Floor" min="1">
+            <input id="nLift" type="number" placeholder="Enter No. of Lift" min="1">
+            </label>
+            <button id='subBut'>Submit</button>
+        </div>
+    </div>
+
+    <!-- Show Floor and lift -->
+    <div class="floorContainer" id="floorContainer">
+        <div class="back-bt">Back</div>
+        <!-- <div class="floor"> -->
+        <!-- <div class="liftButton">
                     <button class="lift-buttons open-lift-btn">
                         <i class="fa-solid fa-angle-up"></i>
                     </button>
@@ -43,14 +45,16 @@
                         <i class="fa-solid fa-angle-down"></i>
                     </button>
                 </div> -->
-                <!-- <div class="lift-container"> 
+
+        <!-- <div class="lift-container">
                     <div class="left-door">
                     </div>
                     <div class="right-door">
                     </div>
                 </div> -->
-            <!-- </div> -->
-        </div>
-        <script src="./js/index.js"></script>
-    </body>
+        <!-- </div> -->
+    </div>
+    <script src="./js/index.js"></script>
+</body>
+
 </html>

@@ -15,35 +15,20 @@ function hideSplashScreen() {
 }
 
 function showSplashScreen() {
-
-    console.log(nFloor)
-
     for (let i = nFloor; i > 0; i--) {
         let floordiv = document.querySelector('.floor');
         floordiv.remove();
     }
-    floorInput.value = 0
-    liftInput.value = 0
+    floorInput.value = null
+    liftInput.value = null
     splashDiv.style.display = "block"
     floorContainer[0].style.display = "none"
 }
 
-function nearestFreeLift(calledFloor, liftPos, isLiftBusy) {
-    console.log("nearest "+calledFloor+" "+liftPos+" "+isLiftBusy)
-    let diff = [];
-    for (let pos of liftPos)
-        diff.push(Math.abs(pos - (+(calledFloor))))   // array containing distance from calledFloor
-    // console.log(`diff ${diff}`);
-
-    let mini = 100, ind = -1;
-    for (let d = 0; d < diff.length; d++) {
-        if (diff[d] < mini && isLiftBusy[d] === false) {
-            mini = diff[d];
-            ind = d;
-        }
-        else continue;
-    }
-    return ind;
+function onBackBtClicked(){
+    showSplashScreen()
+    nFloor = 0;
+    nLift = 0;
 }
 
 function fetchFloorLiftCount() {
@@ -66,14 +51,33 @@ function fetchFloorLiftCount() {
         alert("No. of lift can't be more than floor")
         return
     }
+    console.log("lift = "+nLift+" floor = "+nFloor)
     hideSplashScreen()
     fillFloorsWithLift()
 
 }
 
+function nearestFreeLift(calledFloor, liftPos, isLiftBusy) {
+    // console.log("nearest "+calledFloor+" "+liftPos+" "+isLiftBusy)
+    let diff = [];
+    for (let pos of liftPos)
+        diff.push(Math.abs(pos - (+(calledFloor))))   // array containing distance from
+
+    let mini = 100, ind = -1;
+    for (let d = 0; d < diff.length; d++) {
+        if (diff[d] < mini && isLiftBusy[d] === false) {
+            mini = diff[d];
+            ind = d;
+        }
+        else continue;
+    }
+    return ind;
+}
+
 function fillFloorsWithLift() {
 
-    queue = [];
+    let liftPos = Array(+nLift).fill(0);
+    let isLiftBusy = Array(+nLift).fill(false);
 
     for (let i = 0; i < nFloor; i++) {
    
@@ -104,18 +108,18 @@ function fillFloorsWithLift() {
 
 
         document.getElementById("floorContainer").appendChild(flrDiv);
+        callLift(i, nFloor, liftPos, isLiftBusy);
     }
 
    
     const mainbuttonlift = document.querySelectorAll('.floor');
-    console.log(mainbuttonlift);
+    // console.log(mainbuttonlift);
 
     const lastbox = mainbuttonlift[mainbuttonlift.length - 1];
-    console.log(lastbox)
+    // console.log(lastbox)
 
     for (let index = 0; index < nLift; index++) {
 
-       
         liftContainerDiv = document.createElement('div')
         liftContainerDiv.className = "lift-container"
         liftContainerDiv.setAttribute('flag', `free`);
@@ -134,14 +138,6 @@ function fillFloorsWithLift() {
       
         lastbox.appendChild(liftContainerDiv);
     }
-
-    let liftPos = Array(+nFloor).fill(0);
-    let isLiftBusy = Array(+nFloor).fill(false);
-
-    for (let i = 0; i < nFloor; i++) {
-        callLift(i, nFloor, liftPos, isLiftBusy);
-
-    }
 }
 
 function callLift(i, totalFloors, liftPos, isLiftBusy) {
@@ -159,6 +155,7 @@ function callLift(i, totalFloors, liftPos, isLiftBusy) {
                 }
                 else {
                     let ind = nearestFreeLift(calledFloor, liftPos, isLiftBusy);
+                    console.log("up index "+ind)
 
                     if (isLiftBusy[ind] === false)
                         moveLift(calledFloor, ind, liftPos, isLiftBusy);
@@ -182,7 +179,7 @@ function callLift(i, totalFloors, liftPos, isLiftBusy) {
                         if (queue.length === 0)
                             clearInterval(timeout)
                     }
-                    console.log(`queue = ${queue}`);
+                    // console.log(`queue = ${queue}`);
                 }
             })
         }
@@ -199,7 +196,7 @@ function callLift(i, totalFloors, liftPos, isLiftBusy) {
                 }
                 else {
                     let ind = nearestFreeLift(calledFloor, liftPos, isLiftBusy);
-
+                        console.log("down index "+ind)
                     if (isLiftBusy[ind] === false)
                         moveLift(calledFloor, ind, liftPos, isLiftBusy);
                     else {
@@ -222,55 +219,50 @@ function callLift(i, totalFloors, liftPos, isLiftBusy) {
                             clearInterval(timeout)
                     }
                 }
-                console.log(`queue = ${queue}`);
+                // console.log(`queue = ${queue}`);
             })
         }
     })
 }
 
 const moveLift = (floor, liftNum, liftPos, isLiftBusy) => {
-
-    console.log("movelift "+floor+" "+liftNum+" "+liftPos+" "+isLiftBusy)
+    // console.log("floor "+floor+"// liftNum "+liftNum+"// liftPos "+liftPos+"// isLiftBusy "+isLiftBusy)
     const lifts = Array.from(document.querySelectorAll('.lift-container'));
 
     isLiftBusy[liftNum] = true;
+
+    let time = `${Math.abs(floor - liftPos[liftNum]) * 2}`
    
+    // console.log(`lift floor ${liftNum} ${floor-1}`)
     lifts[liftNum].style.transform = `translateY(${-100 * (floor - 1)}px)`;
 
     let prev = `${2 * Math.abs(floor - liftPos[liftNum])}s`
     lifts[liftNum].style.transitionDuration = prev;
-    
+
+    let gates = document.querySelectorAll('.lift-container')[liftNum];
+
     setTimeout(() => {
-           gateopenclose(liftNum);
-           setTimeout(() => {
-            isLiftBusy[liftNum] = false;
-           }, 5500);
-    }, 2 * Math.abs(floor - liftPos[liftNum]) * 1000)
+            gates.children[0].style.transform = `translateX(-95%)`
+            gates.children[0].style.transition = `all 2s ease-in-out 1s`;
+
+            gates.children[1].style.transform = `translateX(95%)`
+            gates.children[1].style.transition = `all 2s ease-in-out 1s`;
+    },+time * 1000 + 500 );
+
+    setTimeout(() => {
+            gates.children[0].style.transform = `translateX(0%)`
+            gates.children[0].style.transition = `all 2s ease-in-out 1s`;
+
+            gates.children[1].style.transform = `translateX(0%)`
+            gates.children[1].style.transition = `all 2s ease-in-out 1s`;
+
+            setTimeout(() => {
+                isLiftBusy[liftNum] = false;
+            }, 2500);
+
+    }, (+time + 3.5) * 1000)
 
     liftPos[liftNum] = +floor;
-}
-
-function gateopenclose(liftno) {
-    console.log(liftno)
-    let gates = document.querySelectorAll('.lift-container')[liftno];
-    
-    setTimeout(() => {
-        gates.children[0].style.width = '0px';
-        gates.children[1].style.width = '0px';
-    }, 1000);
-
-    // gate close in 3.5s
-    setTimeout(() => {
-        gates.children[0].style.width = '30px';
-        gates.children[1].style.width = '30px';
-    }, 3500)
-}
-
-
-function onBackBtClicked(){
-    showSplashScreen()
-    nFloor = 0;
-    nLift = 0;
 }
 
 function main() {

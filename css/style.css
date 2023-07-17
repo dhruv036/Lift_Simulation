@@ -99,7 +99,7 @@ body{
     background-color: #8D6E63;
     border: 2px solid #3E2723;
     z-index: 3;
-    transition: width 2.5s ease-in-out;
+  
 }
 
 
@@ -112,16 +112,16 @@ body{
     background-color: #8D6E63;
     border: 2px solid #3E2723;
     z-index: 3;
-    transition: width 2.5s ease-in-out;
+   
 }
 
-.left-door-move{
+/* .left-door-move{
     transform: translateX(-100%);
 }
 
 .right-door-move{
     transform: translateX(100%);
-}
+} */
 
 .floorContainer{
     display: none;
@@ -136,9 +136,9 @@ body{
 }
 
 .lift-container{
-    transition-property:transform;
+ 
     box-sizing: border-box;
-    transition-timing-function:ease-in;
+  
 }
 .lift-buttons  {
     height: 2rem;
