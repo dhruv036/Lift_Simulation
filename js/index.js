@@ -29,6 +29,7 @@ function onBackBtClicked(){
     showSplashScreen()
     nFloor = 0;
     nLift = 0;
+    queue = [];
 }
 
 function fetchFloorLiftCount() {
@@ -141,15 +142,17 @@ function fillFloorsWithLift() {
 }
 
 function callLift(i, totalFloors, liftPos, isLiftBusy) {
+   
     const up_btn = document.querySelectorAll('.open-lift-btn');
     const down_btn = document.querySelectorAll('.close-lift-btn');
 
     up_btn.forEach((btn, id) => {
         if (i == id) {
             btn.addEventListener('click', () => {
+               
                 const calledFloor = `${totalFloors - id}`;
-
-                if (liftPos[0] === 0) {
+                console.log("bt ="+i+" liftpos ="+liftPos+" called floor ="+calledFloor)
+                if (liftPos[0] === 1) {
                     if (isLiftBusy[0] === false)
                         moveLift(calledFloor, 0, liftPos, isLiftBusy);
                 }
@@ -189,8 +192,9 @@ function callLift(i, totalFloors, liftPos, isLiftBusy) {
         if (i == id) {
             btn.addEventListener('click', () => {
                 const calledFloor = `${totalFloors - id}`;
+                console.log("bt ="+i+" liftpos ="+liftPos+" called floor ="+calledFloor)
 
-                if (liftPos[0] === 0) {
+                if (liftPos[0] === 1) {
                     if (isLiftBusy[0] === false)
                         moveLift(calledFloor, 0, liftPos, isLiftBusy);
                 }
