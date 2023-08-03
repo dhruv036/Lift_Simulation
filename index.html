@@ -23,7 +23,7 @@
 <body>
 
     <!-- Show Input Dialog -->
-    <div class="container" id="container">
+    <div class="containerMain" id="containerMain">
         <div class="splashScreen">
             <h2>Welcome to Simulation</h2>
             <input id="nFloor" type="number" placeholder="Enter No. of Floor" min="1">
@@ -35,7 +35,11 @@
 
     <!-- Show Floor and lift -->
     <div class="floorContainer" id="floorContainer">
-        <div class="back-bt">Back</div>
+        <div id="back-bt">Back</div>
+        <div id="container">
+            <div id="floors"></div>
+            <div id="lifts"></div>
+        </div>
         <!-- <div class="floor"> -->
         <!-- <div class="liftButton">
                     <button class="lift-buttons open-lift-btn">
@@ -54,6 +58,7 @@
                 </div> -->
         <!-- </div> -->
     </div>
+
     <script src="./js/index.js"></script>
 </body>
 
