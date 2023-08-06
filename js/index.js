@@ -98,6 +98,7 @@ function getThoseLifts(e) {
 }
 
 function moveLift(floorNumber, getButtons) {
+    console.log("floornumber",floorNumber,"buttons",getButtons)
     let availableLift = liftData.filter(item => !item.isMoving);
     const getNearestLift = availableLift.reduce((acc, curr) => {
         const diff = Math.abs(floorNumber - curr.currentFloor);
@@ -120,6 +121,7 @@ function moveLift(floorNumber, getButtons) {
     };
 
     if (availableLift.length === 0) {
+        console.log("available lift zero")
         if (newQueue.length === 0) newQueue = [...liftData];
         const noLiftFree = newQueue.reduce((acc, curr) => {
             const diff = Math.abs(floorNumber - curr.currentFloor);
@@ -132,27 +134,35 @@ function moveLift(floorNumber, getButtons) {
         newQueue = newQueue.filter(item => item.id !== noLiftFree.id);
 
         queueStack.push({ floor: floorNumber, lift: noLiftFree.id, diff: Math.abs(floorNumber - noLiftFree.currentFloor) });
-        queueStack.sort((a, b) => a.diff - b.diff);
+        // queueStack.sort((a, b) => a.diff - b.diff);
         enableButtons.push(getButtons);
+        printQueue()
     } else {
         queueStack.push({ floor: floorNumber, lift: getNearestLift.id, diff: Math.abs(floorNumber - getNearestLift.currentFloor) });
-        queueStack.sort((a, b) => a.diff - b.diff);
+        // queueStack.sort((a, b) => a.diff - b.diff);
         callLift(getNearestLift, getButtons);
     }
 
+}
+function printQueue(){
+      console.log("queue ",queueStack.length);
+      queueStack.forEach(element => {
+        console.log(element)
+      });
 }
 
 function callLift(nearestLift, getButtons) {
     const lift = liftData.find(item => item.id === nearestLift.id);
     const liftElement = document.getElementById(lift.id);
     const floorNumber = queueStack.filter(item => item.lift === lift.id).shift().floor;
+    console.log("floor no: ",floorNumber)
     const newPosition = floorNumber * 160 + floorNumber;
     const timer = Math.abs(floorNumber - lift.currentFloor) * 2000;
     lift.isMoving = true;
     lift.position = newPosition;
     lift.currentFloor = floorNumber;
 
-    console.log(queueStack);
+    // console.log(queueStack);
 
     liftElement.style.transform = `translateY(-${newPosition}px)`;
     liftElement.style.transition = `transform ${timer}ms linear`;
